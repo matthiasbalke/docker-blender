@@ -1,0 +1,19 @@
+version: "3.3"
+
+services:
+  master:
+    image: matthiasbalke/blender
+    environment:
+      - RENDER_MODE=MASTER
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+
+  cpu_slave:
+    image: matthiasbalke/blender
+    environment:
+      - MASTER_IP=master
+      - RENDER_MODE=SLAVE
+    links:
+      - master
